@@ -1,4 +1,6 @@
 // Coloque aqui suas actions
+import fetchCurrencys from '../helpers/api';
+
 export const SAVE_USER_EMAIL = 'SAVE_USER';
 export const saveUserAction = (payload) => ({
   type: SAVE_USER_EMAIL,
@@ -16,3 +18,7 @@ export const Fetch = (payload) => ({
   type: FETCH,
   payload,
 });
+
+export const getCurrency = (currency) => async (dispatch) => {
+  await fetchCurrencys(currency).then((response) => dispatch(Fetch(response)));
+};
