@@ -34,6 +34,7 @@ class Form extends React.Component {
     const { setDispatch, setDispatchFetch } = this.props;
     const { currency } = this.state;
     setDispatch(this.state);
+    console.log('teste 123');
     setDispatchFetch(currency);
     this.setState((state) => ({ value: 0, id: state.id + 1 }));
   }
@@ -45,6 +46,8 @@ class Form extends React.Component {
 
   render() {
     const { method, tag, currency, value, description } = this.state;
+    const moeda = ['USD', 'CAD', 'EUR', 'GBP', 'ARS', 'BTC',
+      'LTC', 'JPY', 'CHF', 'AUD', 'CNY', 'ILS', 'ETH', 'XRP'];
     return (
       <form>
         <input
@@ -72,7 +75,12 @@ class Form extends React.Component {
             data-testid="currency-input"
             onChange={ this.handleChange }
           >
-            <option data-testid="USD" value="USD">USD</option>
+            {moeda.map((coin) => (
+              <option key="coin" data-testid={ coin }>
+                {coin}
+              </option>
+            ))}
+            {/* <option data-testid="USD" value="USD">USD</option>
             <option data-testid="CAD" value="CAD">CAD</option>
             <option data-testid="EUR" value="EUR">EUR</option>
             <option data-testid="GBP" value="GBP">GBP</option>
@@ -85,7 +93,7 @@ class Form extends React.Component {
             <option data-testid="CNY" value="CNY">CNY</option>
             <option data-testid="ILS" value="ILS">ILS</option>
             <option data-testid="ETH" value="ETH">ETH</option>
-            <option data-testid="XRP" value="XRP">XRP</option>
+            <option data-testid="XRP" value="XRP">XRP</option> */}
           </select>
         </label>
         <label htmlFor="method">
@@ -119,7 +127,7 @@ class Form extends React.Component {
         </label>
         <button
           type="button"
-          onClick={ () => this.handleButton() }
+          onClick={ this.handleButton }
         >
           Adicionar despesa
         </button>
@@ -131,6 +139,7 @@ class Form extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   setDispatch: (value) => dispatch(wallet(value)),
   setDispatchFetch: (val) => dispatch(getCurrency(val)),
+
 });
 
 Form.propTypes = {
